@@ -10,13 +10,25 @@ public class Element {
      */
     private Element[] elements;
 
-    private Optional<LinkedList<String>> classes = Optional.empty();
+    /**
+     * the CSS Classes of this element
+     */
+    private LinkedList<String> classes = new LinkedList<>();
 
-    private Optional<String> style = Optional.empty();
+    /**
+     * The css style of this element
+     */
+    private String style = null;
 
+    /**
+     * Whether this element should be cached or not
+     */
     private boolean shouldCache = false;
 
-    private Optional<String> cache = Optional.empty();
+    /**
+     * The content of this element for caching purposes
+     */
+    private String cache = null;
 
     /**
      * Creates a new element
@@ -44,10 +56,56 @@ public class Element {
         this.elements = elements;
     }
 
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
+    }
+
+    public boolean isShouldCache() {
+        return shouldCache;
+    }
+
+    public void setShouldCache(boolean shouldCache) {
+        this.shouldCache = shouldCache;
+    }
+
+    public String getCache() {
+        return cache;
+    }
+
+    public void setCache(String cache) {
+        this.cache = cache;
+    }
+
+    /**
+     * Gets the HTML compatible string for rendering
+     * @return the HTML compatible string
+     */
     @Override
     public String toString()
     {
         StringBuilder sb = new StringBuilder();
+
+        if(style!=null)
+        {
+            sb.append(" style=\"");
+            sb.append(style);
+            sb.append("\"");
+        }
+
+        String classes = getClasses();
+
+        if(classes.length()!=0)
+        {
+            sb.append(" class=\"");
+            sb.append(classes);
+            sb.append("\"");
+        }
+        sb.append(">");
+
         for(Element e : elements)
         {
             sb.append(e.toString());
@@ -57,22 +115,14 @@ public class Element {
 
     public void addClass(String className)
     {
-        if(classes.isPresent())
-        {
-            classes.get().add(className);
-        }
-        else
-        {
-            LinkedList<String> list = new LinkedList<>();
-            list.add(className);
-            classes = Optional.of(list);
-        }
+        classes.add(className);
     }
 
     public String getClasses()
     {
         StringBuilder sb = new StringBuilder();
-        for(String s : classes.get())
+
+        for(String s : classes)
         {
             sb.append(s);
             sb.append(" ");
@@ -82,10 +132,6 @@ public class Element {
 
     public void removeClass(String className)
     {
-        if(!classes.isPresent())
-        {
-            return;
-        }
-        classes.get().remove(className);
+        classes.remove(className);
     }
 }
