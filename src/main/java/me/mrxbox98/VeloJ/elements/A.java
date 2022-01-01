@@ -1,5 +1,8 @@
 package me.mrxbox98.VeloJ.elements;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * @author Mrxbox98
  * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</a>
@@ -23,6 +26,12 @@ public class A extends Element {
      * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-hreflang">Hreflang Attribute</a>
      */
     private String hreflang = null;
+
+    /**
+     * The ping list of the link
+     * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-ping">Ping Attribute</a>
+     */
+    private ArrayList<String> ping = new ArrayList<>();
 
     /**
      * Gets the Download file
@@ -57,6 +66,52 @@ public class A extends Element {
      */
     public A setHref(String href) {
         this.href = href;
+        return this;
+    }
+
+    /**
+     * Gets the hreflang value
+     * @return the hreflang value
+     */
+    public String getHreflang() {
+        return hreflang;
+    }
+
+    /**
+     * Sets the hreflang value
+     * @param hreflang the new hreflang value
+     * @return the current object for chaining
+     */
+    public A setHreflang(String hreflang) {
+        this.hreflang = hreflang;
+        return this;
+    }
+
+    /**
+     * Gets the ping list
+     * @return the ping list
+     */
+    public ArrayList<String> getPing() {
+        return ping;
+    }
+
+    /**
+     * Sets the ping list
+     * @param ping the new ping list
+     * @return the current object for chaining
+     */
+    public A setPing(ArrayList<String> ping) {
+        this.ping = ping;
+        return this;
+    }
+
+    /**
+     * Sets the ping list
+     * @param ping the new ping list
+     * @return the current object for chaining
+     */
+    public A setPing(String ping) {
+        this.ping = (ArrayList<String>) Arrays.asList(ping.split(" "));
         return this;
     }
 
